@@ -1,3 +1,5 @@
+
+# next add session states for using category as a filter, add visualizations, dark theme, integrate selenium
 import numpy as np
 import pandas as pd
 import csv
