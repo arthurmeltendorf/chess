@@ -4,10 +4,12 @@ import csv
 import datetime
 import time
 import os  
+'''
 from selenium import webdriver  
 from selenium.webdriver.common.keys import Keys  
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+'''
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
@@ -234,7 +236,8 @@ def scrape_data(username, password, pages):
     df["Opponent_Accuracy"] = df["Opponent_Accuracy"].astype(float)
     
     '''
-    df = pd.read_csv('/Users/arthurmeltendorf/Downloads/my_chess_archive.csv')
+    url = 'https://raw.githubusercontent.com/arthurmeltendorf/chess/main/my_chess_archive.csv'
+    df = pd.read_csv(url)
     return df
 
 # # Running streamlit app
