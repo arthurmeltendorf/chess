@@ -7,6 +7,10 @@ import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
+from selenium import webdriver  
+from selenium.webdriver.common.keys import Keys  
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
 def scrape_data(username, password, pages):
     '''
