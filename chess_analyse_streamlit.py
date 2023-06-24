@@ -6,7 +6,7 @@ import time
 import os  
 import streamlit as st
 
-def scrape_data(username, password, pages, game_category):
+def scrape_data(username, password, pages):
     '''
     path = "/usr/local/chromedriver"
     my_username = username
@@ -244,14 +244,16 @@ def main():
     username = st.text_input("Enter your Chess.com username")
     password = st.text_input("Enter your Chess.com password", type='password')
     pages = st.text_input("Enter the number of pages on your chess.com archive")
-    game_categories = df['Game Category'].unique().tolist()
-    game_category = st.selectbox('Select a Game Category:', game_categories)
     
     if st.button('Get Stats'):
         if username and password:
             # Scrape the data
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
+
+            # Select category to be analyzed:
+            game_categories = df['Game Category'].unique().tolist()
+            game_category = st.selectbox('Select a Game Category:', game_categories)
     
             # Calculate statistics and display statistics at top
             games_played = len(df)
