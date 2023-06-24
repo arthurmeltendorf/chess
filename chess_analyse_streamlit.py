@@ -249,9 +249,6 @@ def main():
             # Scrape the data
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
-
-            game_categories = df['Game Category'].unique().tolist()
-            selected_game = st.selectbox('Select a Game Category:', game_categories)
     
             # Calculate statistics and display statistics at top
             games_played = len(df)
@@ -265,7 +262,10 @@ def main():
                 "Highest Ranking": highest_ranking,
                 "Win %": (f"{win_percentage:.2f}%"),
             }
-
+            
+            game_categories = df['Game Category'].unique().tolist()
+            selected_game = st.selectbox('Select a Game Category:', game_categories)
+            
             cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
                 if category == selected_game:
