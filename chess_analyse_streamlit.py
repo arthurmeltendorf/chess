@@ -249,6 +249,9 @@ def main():
             # Scrape the data
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
+
+            game_categories = df['Game Category'].unique().tolist()
+            selected_game = st.selectbox('Select a Game Category:', game_categories)
     
             # Calculate statistics and display statistics at top
             games_played = len(df)
@@ -265,15 +268,17 @@ def main():
 
             cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
-                html = f"""
-                <div style='text-align: center;'>
-                    <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
-                    <p style='font-size: 16px;'>{category}</p>
-                </div>
-                """
-                cols[i].markdown(html, unsafe_allow_html=True)
+                if category == selected_game:
+                    html = f"""
+                    <div style='text-align: center;'>
+                        <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
+                        <p style='font-size: 16px;'>{category}</p>
+                    </div>
+                    """
+                    cols[i].markdown(html, unsafe_allow_html=True)
     
             # Add your data analysis and visualization code here
+            filtered_df = df[df['Game Category'] == selected_game]
             st.line_chart(df.set_index('Date')['My_Rating'])
     
         else:
