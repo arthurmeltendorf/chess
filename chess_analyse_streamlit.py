@@ -253,8 +253,6 @@ def main():
     pages = st.text_input("Enter the number of pages on your chess.com archive", value=st.session_state.pages, key='pages')
     
     if st.button('Get Stats'):
-        st.session_state.username = username
-        st.session_state.password = password
         if username and password:
             # Scrape the data
             st.write("Fetching your chess data...")
