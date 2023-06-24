@@ -266,6 +266,11 @@ def main():
             game_categories = df['Game Category'].unique().tolist()
             selected_game = st.selectbox('Select a Game Category:', game_categories)
             
+            if 'selected_game' not in st.session_state:
+                st.session_state.selected_game = game_categories[0]
+
+            selected_game = st.selectbox('Select a Game Category:', game_categories, key='selected_game')
+            
             cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
                 if category == selected_game:
