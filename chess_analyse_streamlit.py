@@ -236,6 +236,7 @@ def scrape_data(username, password, pages):
 # # Running streamlit app
 
 def main():
+    st.set_page_config(layout='wide')
     st.title('Chess Stats Dashboard')
 
     # User inputs
