@@ -262,22 +262,16 @@ def main():
                 "Highest Ranking": highest_ranking,
                 "Win %": (f"{win_percentage:.2f}%"),
             }
-            
-            html = ""
-            for category, number in data.items():
-                html += f"""
-                <div style='display: inline-block; padding: 10px; text-align: center;'>
+
+            cols = st.beta_columns(4)
+            for i, (category, number) in enumerate(data.items()):
+                html = f"""
+                <div style='text-align: center;'>
                     <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
                     <p style='font-size: 16px;'>{category}</p>
                 </div>
                 """
-            st.markdown(html, unsafe_allow_html=True)
-            
-            '''# Display statistics at top
-            st.write(f"Games Played: {games_played}")
-            st.write(f"Years and Days Played: {years_days_played.days // 365} years & {years_days_played.days % 365} days")
-            st.write(f"Highest Ranking Ever: {highest_ranking}")
-            st.write(f"Win Percentage: {win_percentage:.2f}%")'''
+                cols[i].markdown(html, unsafe_allow_html=True)
     
             # Add your data analysis and visualization code here
             st.line_chart(df.set_index('Date')['My_Rating'])
