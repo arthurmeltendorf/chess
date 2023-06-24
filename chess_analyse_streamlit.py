@@ -1,7 +1,3 @@
-pip install selenium
-pip install streamlit
-pip install altair==4
-
 import numpy as np
 import pandas as pd
 import csv
@@ -275,8 +271,7 @@ def main():
         else:
             st.error('Please enter your Chess.com username and password.')
 
-if __name__ == "__main__":
-    main()
+main()
 
 
 
