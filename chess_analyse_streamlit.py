@@ -234,6 +234,7 @@ def scrape_data(username, password, pages):
 
 # # Running streamlit app
 
+def main():
     st.title('Chess Stats Dashboard')
 
     # User inputs
@@ -241,29 +242,32 @@ def scrape_data(username, password, pages):
     password = st.text_input("Enter your Chess.com password", type='password')
     pages = st.text_input("Enter the number of pages on your chess.com archive")
 
-if st.button('Get Stats'):
-    if username and password:
-        # Scrape the data
-        st.write("Fetching your chess data...")
-        df = scrape_data(username, password, pages)
+    if st.button('Get Stats'):
+        if username and password:
+            # Scrape the data
+            st.write("Fetching your chess data...")
+            df = scrape_data(username, password, pages)
+    
+            # Calculate statistics
+            games_played = len(df)
+            years_days_played = df['Date'].max() - df['Date'].min()
+            highest_ranking = df['My_Rating'].max()
+            win_percentage = (df['Result'] == 'Win').mean() * 100
+            
+            # Display statistics at top
+            st.write(f"Games Played: {games_played}")
+            st.write(f"Years and Days Played: {years_days_played.days // 365} years & {years_days_played.days % 365} days")
+            st.write(f"Highest Ranking Ever: {highest_ranking}")
+            st.write(f"Win Percentage: {win_percentage:.2f}%")
+    
+            # Add your data analysis and visualization code here
+            st.line_chart(df.set_index('Date')['My_Rating'])
+    
+        else:
+            st.error('Please enter your Chess.com username and password.')
 
-        # Calculate statistics
-        games_played = len(df)
-        years_days_played = df['Date'].max() - df['Date'].min()
-        highest_ranking = df['My_Rating'].max()
-        win_percentage = (df['Result'] == 'Win').mean() * 100
-        
-        # Display statistics at top
-        st.write(f"Games Played: {games_played}")
-        st.write(f"Years and Days Played: {years_days_played.days // 365} years & {years_days_played.days % 365} days")
-        st.write(f"Highest Ranking Ever: {highest_ranking}")
-        st.write(f"Win Percentage: {win_percentage:.2f}%")
-
-        # Add your data analysis and visualization code here
-        st.line_chart(df.set_index('Date')['My_Rating'])
-
-    else:
-        st.error('Please enter your Chess.com username and password.')
+if __name__ == "__main__":
+    main()
 
 
 
