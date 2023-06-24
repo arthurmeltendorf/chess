@@ -230,6 +230,7 @@ def scrape_data(username, password, pages):
     '''
     url = 'https://raw.githubusercontent.com/arthurmeltendorf/chess/main/my_chess_archive.csv'
     df = pd.read_csv(url)
+    df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d')
     return df
 
 # # Running streamlit app
