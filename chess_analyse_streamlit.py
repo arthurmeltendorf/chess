@@ -249,17 +249,34 @@ def main():
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
     
-            # Calculate statistics
+            # Calculate statistics and display statistics at top
             games_played = len(df)
             years_days_played = df['Date'].max() - df['Date'].min()
             highest_ranking = df['My_Rating'].max()
             win_percentage = (df['Result'] == 'Win').mean() * 100
+
+            data = {
+                "Games": games_played,
+                "Time": years_days_played,
+                "Highest Ranking": highest_ranking,
+                "Win %": win_percentage,
+            }
             
-            # Display statistics at top
+            html = ""
+            for category, number in data.items():
+                html += f"""
+                <div style='display: inline-block; padding: 10px; text-align: center;'>
+                    <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
+                    <p style='font-size: 16px;'>{category}</p>
+                </div>
+                """
+            st.markdown(html, unsafe_allow_html=True)
+            
+            '''# Display statistics at top
             st.write(f"Games Played: {games_played}")
             st.write(f"Years and Days Played: {years_days_played.days // 365} years & {years_days_played.days % 365} days")
             st.write(f"Highest Ranking Ever: {highest_ranking}")
-            st.write(f"Win Percentage: {win_percentage:.2f}%")
+            st.write(f"Win Percentage: {win_percentage:.2f}%")'''
     
             # Add your data analysis and visualization code here
             st.line_chart(df.set_index('Date')['My_Rating'])
