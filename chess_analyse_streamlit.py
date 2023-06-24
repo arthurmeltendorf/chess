@@ -4,7 +4,6 @@ import csv
 import datetime
 import time
 import os  
-import matplotlib.pyplot as plt
 import streamlit as st
 from selenium import webdriver  
 from selenium.webdriver.common.keys import Keys  
