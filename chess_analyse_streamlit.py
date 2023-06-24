@@ -257,9 +257,9 @@ def main():
 
             data = {
                 "Games": games_played,
-                "Time": years_days_played,
+                "Time": (f"{years_days_played.days // 365} years & {years_days_played.days % 365} days"),
                 "Highest Ranking": highest_ranking,
-                "Win %": win_percentage,
+                "Win %": (f"{win_percentage:.2f}%"),
             }
             
             html = ""
