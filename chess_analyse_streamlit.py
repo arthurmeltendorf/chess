@@ -244,22 +244,22 @@ def main():
     username = st.text_input("Enter your Chess.com username")
     password = st.text_input("Enter your Chess.com password", type='password')
     pages = st.text_input("Enter the number of pages on your chess.com archive")
-    
+    game_categories = ['1 min', '1|1', '2|1', '3 min', '3|2', '5 min', '5|5', '10 min']
+    selected_game = st.selectbox('Select a Game Category:', game_categories)
+
     if st.button('Get Stats'):
         if username and password:
             # Scrape the data
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
+            filtered_df = df[df['Game Category'] == selected_game]
 
-            # Select category to be analyzed:
-            game_categories = df['Game Category'].unique().tolist()
-            game_category = st.selectbox('Select a Game Category:', game_categories)
     
             # Calculate statistics and display statistics at top
-            games_played = len(df)
-            years_days_played = df['Date'].max() - df['Date'].min()
-            highest_ranking = df['My_Rating'].max()
-            win_percentage = (df['Result'] == 'Win').mean() * 100
+            games_played = len(filtered_df)
+            years_days_played = filtered_df['Date'].max() - filtered_df['Date'].min()
+            highest_ranking = filtered_df['My_Rating'].max()
+            win_percentage = (filtered_df['Result'] == 'Win').mean() * 100
 
             data = {
                 "Games": games_played,
@@ -270,18 +270,16 @@ def main():
             
             cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
-                if category == selected_game:
-                    html = f"""
-                    <div style='text-align: center;'>
-                        <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
-                        <p style='font-size: 16px;'>{category}</p>
-                    </div>
-                    """
-                    cols[i].markdown(html, unsafe_allow_html=True)
+                html = f"""
+                <div style='text-align: center;'>
+                    <h2 style='font-size: 32px; font-weight: bold;'>{number}</h2>
+                    <p style='font-size: 16px;'>{category}</p>
+                </div>
+                """
+                cols[i].markdown(html, unsafe_allow_html=True)
     
             # Add your data analysis and visualization code here
-            filtered_df = df[df['Game Category'] == selected_game]
-            st.line_chart(df.set_index('Date')['My_Rating'])
+            st.line_chart(filtered_df.set_index('Date')['My_Rating'])
     
         else:
             st.error('Please enter your Chess.com username and password.')
