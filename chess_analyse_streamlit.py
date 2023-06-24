@@ -6,7 +6,7 @@ import time
 import os  
 import streamlit as st
 
-def scrape_data(username, password, pages):
+def scrape_data(username, password, pages, game_category):
     '''
     path = "/usr/local/chromedriver"
     my_username = username
@@ -240,17 +240,12 @@ def main():
     st.title('Chess Stats Dashboard')
 
     # User inputs
-    if 'username' not in st.session_state:
-        st.session_state.username = ''
-    username = st.text_input("Enter your Chess.com username", value=st.session_state.username, key='username')
     
-    if 'password' not in st.session_state:
-        st.session_state.password = ''
-    password = st.text_input("Enter your Chess.com password", value=st.session_state.password, key='password', type='password')
-
-    if 'pages' not in st.session_state:
-        st.session_state.pages = ''
-    pages = st.text_input("Enter the number of pages on your chess.com archive", value=st.session_state.pages, key='pages')
+    username = st.text_input("Enter your Chess.com username")
+    password = st.text_input("Enter your Chess.com password", type='password')
+    pages = st.text_input("Enter the number of pages on your chess.com archive")
+    game_categories = df['Game Category'].unique().tolist()
+    game_category = st.selectbox('Select a Game Category:', game_categories)
     
     if st.button('Get Stats'):
         if username and password:
@@ -270,13 +265,6 @@ def main():
                 "Highest Ranking": highest_ranking,
                 "Win %": (f"{win_percentage:.2f}%"),
             }
-            
-            game_categories = df['Game Category'].unique().tolist()
-            
-            if 'selected_game' not in st.session_state:
-                st.session_state.selected_game = game_categories[0]
-
-            selected_game = st.selectbox('Select a Game Category:', game_categories, key='selected_game')
             
             cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
