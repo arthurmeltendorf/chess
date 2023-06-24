@@ -263,7 +263,7 @@ def main():
                 "Win %": (f"{win_percentage:.2f}%"),
             }
 
-            cols = st.beta_columns(4)
+            cols = st.columns(4)
             for i, (category, number) in enumerate(data.items()):
                 html = f"""
                 <div style='text-align: center;'>
