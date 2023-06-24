@@ -264,7 +264,6 @@ def main():
             }
             
             game_categories = df['Game Category'].unique().tolist()
-            selected_game = st.selectbox('Select a Game Category:', game_categories)
             
             if 'selected_game' not in st.session_state:
                 st.session_state.selected_game = game_categories[0]
