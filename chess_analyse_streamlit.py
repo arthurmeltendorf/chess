@@ -286,7 +286,7 @@ def main():
 
             # Pie chart and histogram
 
-            pie_colors = ['#c594ff', '#14d8c4', '#aaabab']
+            pie_colors = ['#14d8c4', '#c594ff', '#aaabab']
             col1, col2 = st.columns(2)
 
             with col1:
