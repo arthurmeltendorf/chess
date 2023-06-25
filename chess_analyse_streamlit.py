@@ -7,7 +7,7 @@ import datetime
 import time
 import os  
 import streamlit as st
-import matpltlib as plt
+import matplotlib as plt
 
 def scrape_data(username, password, pages):
     '''
