@@ -282,7 +282,21 @@ def main():
     
             # Add your data analysis and visualization code here
             st.line_chart(filtered_df.set_index('Date')['My_Rating'])
-    
+
+            results_counts = filtered_df['Result'].value_counts()
+            fig1, ax1 = plt.subplots()
+            ax1.pie(results_counts, labels=results_counts.index, autopct='%1.1f%%', startangle=90)
+            ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+            st.pyplot(fig1)
+
+            accuracy_values = filtered_df['My_Accuracy'].dropna()
+            fig2, ax2 = plt.subplots()
+            ax2.hist(accuracy_values, bins=10, edgecolor='black')
+            ax2.set_title('Accuracy')
+            ax2.set_xlabel('Accuracy')
+            ax2.set_ylabel('Frequency')
+            st.pyplot(fig2)
+        
         else:
             st.error('Please enter your Chess.com username and password.')
 
