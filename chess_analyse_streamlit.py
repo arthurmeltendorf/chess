@@ -281,8 +281,28 @@ def main():
                 """
                 cols[i].markdown(html, unsafe_allow_html=True)
     
-            # Add your data analysis and visualization code here
-            st.line_chart(filtered_df.set_index('Date')['My_Rating'])
+            # Line chart
+            #st.line_chart(filtered_df.set_index('Date')['My_Rating'])
+            fig, ax = plt.subplots()
+            df.plot(kind='line', x='Date', y='My_Rating', ax=ax, color='white')
+
+            ax.set_facecolor('#262730')
+            fig.patch.set_facecolor('#262730')
+
+            ax.spines['bottom'].set_color('white')
+            ax.spines['top'].set_color('white')
+            ax.spines['right'].set_color('white')
+            ax.spines['left'].set_color('white')
+            
+            ax.xaxis.label.set_color('white')
+            ax.yaxis.label.set_color('white')
+            
+            ax.tick_params(axis='x', colors='white')
+            ax.tick_params(axis='y', colors='white')
+            
+            ax.title.set_color('white')
+
+            st.pyplot(fig)
 
             # Pie chart and histogram
 
@@ -293,6 +313,8 @@ def main():
                 fig1, ax1 = plt.subplots()
                 ax1.pie(results_counts, labels=results_counts.index, autopct='%1.1f%%', startangle=90)
                 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+                ax1.set_facecolor('#262730')
+                plt.gca().set_facecolor('#262730')
                 st.pyplot(fig1)
 
             with col2:
@@ -302,6 +324,8 @@ def main():
                 ax2.set_title('Accuracy')
                 ax2.set_xlabel('Accuracy')
                 ax2.set_ylabel('Frequency')
+                ax2.set_facecolor('#262730')
+                plt.gca().set_facecolor('#262730')
                 st.pyplot(fig2)
         
         else:
