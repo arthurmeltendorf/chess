@@ -282,27 +282,7 @@ def main():
                 cols[i].markdown(html, unsafe_allow_html=True)
     
             # Line chart
-            #st.line_chart(filtered_df.set_index('Date')['My_Rating'])
-            fig, ax = plt.subplots()
-            df.plot(kind='line', x='Date', y='My_Rating', ax=ax, color='white')
-
-            ax.set_facecolor('#262730')
-            fig.patch.set_facecolor('#262730')
-
-            ax.spines['bottom'].set_color('white')
-            ax.spines['top'].set_color('white')
-            ax.spines['right'].set_color('white')
-            ax.spines['left'].set_color('white')
-            
-            ax.xaxis.label.set_color('white')
-            ax.yaxis.label.set_color('white')
-            
-            ax.tick_params(axis='x', colors='white')
-            ax.tick_params(axis='y', colors='white')
-            
-            ax.title.set_color('white')
-
-            st.pyplot(fig)
+            st.line_chart(filtered_df.set_index('Date')['My_Rating'])
 
             # Pie chart and histogram
 
