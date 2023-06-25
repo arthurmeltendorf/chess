@@ -287,12 +287,15 @@ def main():
             # Pie chart and histogram
 
             pie_colors = ['#14d8c4', '#c594ff', '#aaabab']
+            hist_color = '#c594ff'
             col1, col2 = st.columns(2)
 
             with col1:
                 results_counts = filtered_df['Result'].value_counts()
                 fig1, ax1 = plt.subplots(figsize=(4, 2))
-                ax1.pie(results_counts, labels=results_counts.index, autopct='%1.1f%%', startangle=90, colors=pie_colors)
+                patches, texts, autotexts = ax1.pie(results_counts, labels=results_counts.index, autopct='%1.1f%%', startangle=90, colors=pie_colors)
+                for text in texts + autotexts:
+                    text.set_color('white')  # Change text color to white
                 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
                 ax1.set_facecolor('#262730')
                 plt.gca().set_facecolor('#262730')
@@ -301,7 +304,7 @@ def main():
             with col2:
                 accuracy_values = filtered_df['My_Accuracy'].dropna()
                 fig2, ax2 = plt.subplots(figsize=(4, 2))
-                ax2.hist(accuracy_values, bins=20, edgecolor='black')
+                ax2.hist(accuracy_values, bins=20, edgecolor='white', color=hist_color)
                 ax2.set_title('Accuracy')
                 ax2.set_xlabel('Accuracy')
                 ax2.set_ylabel('Frequency')
