@@ -304,7 +304,7 @@ def main():
             with col2:
                 accuracy_values = filtered_df['My_Accuracy'].dropna()
                 fig2, ax2 = plt.subplots(figsize=(4, 2))
-                ax2.hist(accuracy_values, bins=20, edgecolor='white', color=hist_color)
+                ax2.hist(accuracy_values, bins=20, edgecolor='#262730', color=hist_color)
                 ax2.set_title('Accuracy')
                 ax2.set_xlabel('Accuracy')
                 ax2.set_ylabel('Frequency')
