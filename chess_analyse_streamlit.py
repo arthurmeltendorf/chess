@@ -298,6 +298,7 @@ def main():
                 for text in texts + autotexts:
                     text.set_color('white')  # Change text color to white
                 ax1.legend(results_counts.index, loc="center left", bbox_to_anchor=(0.9, 0.5),fontsize=4)
+                ax1.set_title("Win/Loss", color='white', size=8)
                 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
                 ax1.set_facecolor('#262730')
                 plt.gca().set_facecolor('#262730')
@@ -307,9 +308,12 @@ def main():
                 accuracy_values = filtered_df['My_Accuracy'].dropna()
                 fig2, ax2 = plt.subplots(figsize=(4, 2))
                 ax2.hist(accuracy_values, bins=20, edgecolor='#262730', color=hist_color)
-                ax2.set_title('Accuracy')
-                ax2.set_xlabel('Accuracy')
-                ax2.set_ylabel('Frequency')
+                ax2.set_title('Accuracy per Game', color='grey', size=8)
+                ax2.set_xlabel('Accuracy', color='grey', size=4)
+                ax2.set_ylabel('Frequency', color='grey', size=4)
+                ax2.tick_params(colors='grey')  
+                ax2.spines['top'].set_visible(False)
+                ax2.spines['right'].set_visible(False)
                 ax2.set_facecolor('#262730')
                 plt.gca().set_facecolor('#262730')
                 st.pyplot(fig2)
