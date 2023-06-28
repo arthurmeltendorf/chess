@@ -258,7 +258,7 @@ def main():
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
             filtered_df = df[df['Game Category'] == selected_game]
-            filtered_df_v02 = filtered_df
+            filtered_df_v02 = df[df['Game Category'] == selected_game]
            
             # for correlation matrix
             result_numeric = {'win': 1, 'draw': 0, 'loss': -1}
