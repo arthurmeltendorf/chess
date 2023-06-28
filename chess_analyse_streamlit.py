@@ -326,7 +326,11 @@ def main():
                 mask = np.triu(np.ones_like(corr, dtype=bool))  # Generate a mask for the upper triangle
                 
                 # Create a custom diverging colormap
-                cmap = sns.diverging_palette(230, 20, as_cmap=True)
+                #cmap = sns.diverging_palette(230, 20, as_cmap=True)
+                cmap = LinearSegmentedColormap.from_list(
+                name='custom', 
+                colors=['#14d8c4', '#bba1d9']
+                )
                 
                 fig3, ax3 = plt.subplots(figsize=(5, 5))
                 sns.heatmap(corr, mask=mask, cmap=cmap, annot=True, fmt=".2f", linewidths=0.5, ax=ax3, cbar=False)
