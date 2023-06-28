@@ -286,6 +286,7 @@ def main():
 
             # Pie chart and histogram
 
+            plt.rcParams['figure.facecolor'] = '#262730'
             pie_colors = ['#14d8c4', '#c594ff', '#aaabab']
             hist_color = '#c594ff'
             col1, col2 = st.columns(2)
