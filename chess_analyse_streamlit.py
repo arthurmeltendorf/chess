@@ -8,6 +8,7 @@ import time
 import os  
 import streamlit as st
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def scrape_data(username, password, pages):
     '''
@@ -317,6 +318,22 @@ def main():
                 ax2.set_facecolor('#262730')
                 plt.gca().set_facecolor('#262730')
                 st.pyplot(fig2)
+
+            col1, col2 = st.columns(2)
+            with col2:
+                corr = filtered_df.corr()  # Compute the correlation matrix
+                mask = np.triu(np.ones_like(corr, dtype=bool))  # Generate a mask for the upper triangle
+                
+                # Create a custom diverging colormap
+                cmap = sns.diverging_palette(230, 20, as_cmap=True)
+                
+                fig3, ax3 = plt.subplots(figsize=(5, 5))
+                sns.heatmap(corr, mask=mask, cmap=cmap, annot=True, fmt=".2f", linewidths=0.5, ax=ax3, cbar=False)
+                ax3.set_title('Correlation Matrix', color='white', size=10)
+                fig3.patch.set_facecolor('#262730')  # Change the background color of the figure
+                ax3.set_facecolor('#262730')  # Change the background color of the plot
+                ax3.tick_params(colors='grey', labelsize=6)  # Change the color and size of the tick marks
+                st.pyplot(fig3)
         
         else:
             st.error('Please enter your Chess.com username and password.')
