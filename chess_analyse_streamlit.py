@@ -347,7 +347,7 @@ def main():
                 st.pyplot(fig3)
 
             with col2:
-                avg_moves_df = filtered_df.groupby('Result')['Total Moves	'].mean().reset_index()
+                avg_moves_df = filtered_df.groupby('Result')['Total Moves'].mean().reset_index()
                 st.bar_chart(avg_moves_df.set_index('Result'))
 
         
