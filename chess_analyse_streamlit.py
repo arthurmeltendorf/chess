@@ -294,10 +294,10 @@ def main():
             with col1:
                 results_counts = filtered_df['Result'].value_counts()
                 fig1, ax1 = plt.subplots(figsize=(4, 2))
-                patches, texts, autotexts = ax1.pie(results_counts, autopct=lambda pct: f'<b><small>{pct:.1f}%</small></b>', startangle=90, colors=pie_colors)
+                patches, texts, autotexts = ax1.pie(results_counts, autopct='%1.1f%%', startangle=90, colors=pie_colors)
                 for text in texts + autotexts:
                     text.set_color('white')  # Change text color to white
-                ax1.legend(results_counts.index, loc="upper right", bbox_to_anchor=(1, 1, 0.5, 0),fontsize=4)
+                ax1.legend(results_counts.index, loc="center left", bbox_to_anchor=(0.9, 0.5),fontsize=4)
                 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
                 ax1.set_facecolor('#262730')
                 plt.gca().set_facecolor('#262730')
