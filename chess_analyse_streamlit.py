@@ -257,6 +257,7 @@ def main():
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
             filtered_df = df[df['Game Category'] == selected_game]
+            numeric_cols = filtered_df.select_dtypes(include=np.number)  # Select only numeric columns
 
     
             # Calculate statistics and display statistics at top
@@ -321,7 +322,7 @@ def main():
 
             col1, col2 = st.columns(2)
             with col2:
-                corr = filtered_df.corr()  # Compute the correlation matrix
+                corr = numeric_cols.corr()  # Compute the correlation matrix
                 mask = np.triu(np.ones_like(corr, dtype=bool))  # Generate a mask for the upper triangle
                 
                 # Create a custom diverging colormap
