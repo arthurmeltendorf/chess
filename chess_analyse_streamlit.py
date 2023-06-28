@@ -258,7 +258,12 @@ def main():
             st.write("Fetching your chess data...")
             df = scrape_data(username, password, pages)
             filtered_df = df[df['Game Category'] == selected_game]
-            numeric_cols = filtered_df.select_dtypes(include=np.number)  # Select only numeric columns
+            filtered_df_v02 = filtered_df
+           
+            # for correlation matrix
+            result_numeric = {'win': 1, 'draw': 0, 'loss': -1}
+            filtered_df_v02['Result'] = filtered_df_v02['Result'].map(result_numeric)
+            numeric_cols = filtered_df_v02.select_dtypes(include=np.number)  # Select only numeric columns
 
     
             # Calculate statistics and display statistics at top
@@ -322,7 +327,7 @@ def main():
                 st.pyplot(fig2)
 
             col1, col2 = st.columns(2)
-            with col2:
+            with col1:
                 corr = numeric_cols.corr()  # Compute the correlation matrix
                 mask = np.triu(np.ones_like(corr, dtype=bool))  # Generate a mask for the upper triangle
                 
@@ -340,6 +345,11 @@ def main():
                 ax3.set_facecolor('#262730')  # Change the background color of the plot
                 ax3.tick_params(colors='grey', labelsize=6)  # Change the color and size of the tick marks
                 st.pyplot(fig3)
+
+            with col2:
+                avg_moves_df = filtered_df.groupby('Result')['Total Moves	'].mean().reset_index()
+                st.bar_chart(avg_moves_df.set_index('Result'))
+
         
         else:
             st.error('Please enter your Chess.com username and password.')
